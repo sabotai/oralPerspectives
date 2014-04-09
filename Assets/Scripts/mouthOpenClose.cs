@@ -12,10 +12,20 @@ public class mouthOpenClose : MonoBehaviour {
 	void Update () {
 		if ( Input.GetKey (KeyCode.Space)) 
 		{
-
+			audio.Stop ();
 			animation.Rewind ();
 			animation.Play ();
-			//AudioSource.Play();
+			audio.Play();
 		}
+
+		if (Input.GetMouseButton (0)) {
+						Debug.Log ("Pressed left click.");
+						animation.Rewind ();
+						animation.Play ();
+						audio.Play ();
+				}
+
+		if (Input.GetMouseButton(1))
+			Debug.Log("Pressed right click.");
 	}
 }
