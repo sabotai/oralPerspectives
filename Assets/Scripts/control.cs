@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine;
 using System.Collections;
 
 public class control : MonoBehaviour {
@@ -30,9 +29,25 @@ public class control : MonoBehaviour {
 	public AudioSource shiftSound;
 
 	bool begin;
-	int clickCount;
+	int clickCount, stepCount;
 	float audioVol;
 	float originalVol, originalVol2;
+
+
+
+
+
+
+	public Transform startMarker;
+	public Transform endMarker;
+	public float walkSpeed = 1.0F;
+	private float startTime;
+	private float journeyLength;
+	public float smooth = 5.0F;
+	public GameObject player;
+	Vector3 relativeEndMarker, relativeStartMarker;
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -49,17 +64,34 @@ public class control : MonoBehaviour {
 
 
 		
+		startTime = Time.time;
+
+		relativeEndMarker = startMarker.InverseTransformDirection(endMarker.transform.position);
+		relativeStartMarker = player.transform.InverseTransformDirection(startMarker.transform.position);
+		Debug.Log ("relativeEndMarker = " + relativeEndMarker);
+
+
+		journeyLength = Vector3.Distance(startMarker.position, endMarker.position);
+
+
+
+		
 	}
 
 	void Update() {
 		float step = speed * Time.deltaTime;
 
+	
 
-		if (Input.GetMouseButtonDown(1)) 
-		{
+
+		if (Input.GetMouseButtonUp (1)) {
+
 			if (clickCount == 0) {
+				//do sound
+
+			} else if (clickCount == 1) {
 				wallThump.Play ();
-			} else if (clickCount == 1){
+			} else if (clickCount == 2){
 				shiftSound.Play();
 			}
 
@@ -75,15 +107,40 @@ public class control : MonoBehaviour {
 			clickCount++;
 			Debug.Log("clickCount is " + clickCount);
 
+		}		
+		if (clickCount > 0) {
+
+
+			//walk forward, only works if you right click first
+			float distCovered = (Time.time - startTime) * walkSpeed;
+			float fracJourney = distCovered / journeyLength;
+			player.transform.position = Vector3.Lerp(startMarker.position, endMarker.position, fracJourney);
+
+
+
+
+		}		
+		if (clickCount == 2) {
+			//Debug.Log ("wall should be moving");
+			
+			breakaway1.rigidbody.AddForce (Vector3.Normalize (destination - sceneTarget.transform.position));
+			breakaway1.rigidbody.isKinematic = false;
+		}
+		
+		if (clickCount == 2) {
+			//Debug.Log ("wall should be moving");
+			
+			breakaway1.rigidbody.AddForce (Vector3.Normalize (destination - sceneTarget.transform.position));
+			breakaway1.rigidbody.isKinematic = false;
 		}
 
-		if (clickCount == 1) {
+		if (clickCount == 3) {
 			//Debug.Log ("wall should be moving");
 
 			breakaway1.rigidbody.AddForce (Vector3.Normalize (destination - sceneTarget.transform.position));
 			breakaway1.rigidbody.isKinematic = false;
 		}
-		if (clickCount >= 2) {
+		if (clickCount >= 3) {
 			//Debug.Log ("scene1 should be moving");
 			//shiftSound.Play();
 

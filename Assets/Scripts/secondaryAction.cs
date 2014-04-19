@@ -5,6 +5,7 @@ public class secondaryAction : MonoBehaviour {
 
 	public GameObject vomitObject;
 	public Transform vomitOrigin;
+	public AudioSource vomitSound;
 
 	// Use this for initialization
 	void Start () {
@@ -14,15 +15,23 @@ public class secondaryAction : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if ( Input.GetKey (KeyCode.V)) {
-			Debug.Log ("instantiating new vomit");
+		if (Input.GetKey (KeyCode.V)) {
+						Debug.Log ("instantiating new vomit");
 
-			for (int i = 0; i < 3; i++){
-				GameObject clone;
-				clone = Instantiate(vomitObject, vomitOrigin.transform.position, vomitObject.transform.rotation) as GameObject;
-				//clone.transform.localScale = vomitObject.transform.localScale;
-				clone.rigidbody.velocity = vomitOrigin.transform.TransformDirection(Vector3.forward * 5 *i);
-			}
-		}
+						for (int i = 0; i < 3; i++) {
+								GameObject clone;
+								clone = Instantiate (vomitObject, vomitOrigin.transform.position, vomitOrigin.transform.rotation) as GameObject;
+								//clone.transform.localScale = vomitObject.transform.localScale;
+								//clone.transform.rotation = vomitOrigin.transform.localRotation;
+								clone.rigidbody.velocity = vomitOrigin.transform.TransformDirection(Vector3.forward * (3+i));// * 8 * i);
+				
+								//clone.rigidbody.mass = 1;
+								//clone.rigidbody.velocity = vomitOrigin.transform.TransformDirection(Vector3.forward);
+						}
+						//vomitSound.Play ();
+						audio.Play ();
+				} else {
+				//	vomitSound.Stop ();
+				}
 	}
 }
