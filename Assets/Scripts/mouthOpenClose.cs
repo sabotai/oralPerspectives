@@ -10,14 +10,12 @@ public class mouthOpenClose : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		/*
 		if ( Input.GetKeyDown (KeyCode.Space)) 
 		{
-			Go ();/*
-			audio.Stop ();
-			audio.Play();
-			animation.Rewind ();
-			animation.Play ();*/
+			Go ();
 		}
+		*/
 
 		if (Input.GetMouseButton (0)) {
 			Debug.Log ("Pressed left click.");
