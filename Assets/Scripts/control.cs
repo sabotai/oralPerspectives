@@ -89,9 +89,9 @@ public class control : MonoBehaviour {
 			if (clickCount == 0) {
 				//do sound
 
-			} else if (clickCount == 1) {
+			} else if (clickCount == 2) {
 				wallThump.Play ();
-			} else if (clickCount == 2){
+			} else if (clickCount == 3){
 				shiftSound.Play();
 			}
 
@@ -121,26 +121,30 @@ public class control : MonoBehaviour {
 
 		}		
 		if (clickCount == 2) {
-			//Debug.Log ("wall should be moving");
-			
-			breakaway1.rigidbody.AddForce (Vector3.Normalize (destination - sceneTarget.transform.position));
-			breakaway1.rigidbody.isKinematic = false;
+			//Debug.Log ("toothbrush is moving");
+
+			//bool isBrushing = GetComponent(toothBrushMove);
+			//toothBrushMove.main.isBrushing = true;
+
+
+			GameObject obj = GameObject.Find("toothbrush2");
+			obj.GetComponent<toothBrushMove>().startBrushing=true;
 		}
 		
-		if (clickCount == 2) {
+		if (clickCount == 3) {
 			//Debug.Log ("wall should be moving");
 			
 			breakaway1.rigidbody.AddForce (Vector3.Normalize (destination - sceneTarget.transform.position));
 			breakaway1.rigidbody.isKinematic = false;
 		}
 
-		if (clickCount == 3) {
+		if (clickCount == 4) {
 			//Debug.Log ("wall should be moving");
 
 			breakaway1.rigidbody.AddForce (Vector3.Normalize (destination - sceneTarget.transform.position));
 			breakaway1.rigidbody.isKinematic = false;
 		}
-		if (clickCount >= 3) {
+		if (clickCount >= 4) {
 			//Debug.Log ("scene1 should be moving");
 			//shiftSound.Play();
 

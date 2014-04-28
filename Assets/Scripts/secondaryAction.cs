@@ -26,12 +26,11 @@ public class secondaryAction : MonoBehaviour {
 								clone.rigidbody.velocity = vomitOrigin.transform.TransformDirection(Vector3.forward * (3+i));// * 8 * i);
 				
 								//clone.rigidbody.mass = 1;
-								//clone.rigidbody.velocity = vomitOrigin.transform.TransformDirection(Vector3.forward);
+				//clone.rigidbody.velocity = vomitOrigin.transform.TransformDirection(Vector3.forward);
 						}
-						//vomitSound.Play ();
-						audio.Play ();
 				} else {
-				//	vomitSound.Stop ();
+			//vomitSound.Stop ();
+			vomitSound.Play ();
 				}
 	}
 }
