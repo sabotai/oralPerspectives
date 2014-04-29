@@ -15,26 +15,10 @@ Platform assembly: D:\Stuff\oralPerspectives\Build\oralScene1_noOVR_x8664_Data\M
 Loading D:\Stuff\oralPerspectives\Build\oralScene1_noOVR_x8664_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
 Platform assembly: D:\Stuff\oralPerspectives\Build\oralScene1_noOVR_x8664_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
 Loading D:\Stuff\oralPerspectives\Build\oralScene1_noOVR_x8664_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
-- Completed reload, in  0.070 seconds
+- Completed reload, in  0.116 seconds
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 XInput1_3.dll not found.
 <RI> Input initialized.
 Unsupported: Hidden/Dof/DX11Dof
-HDR and MultisampleAntiAliasing (in Forward Rendering Path) is not supported. This camera will render without HDR buffers. Disable Antialiasing in the Quality settings if you want to use HDR.
- 
-(Filename:  Line: 2237)
-
-HDR and MultisampleAntiAliasing (in Forward Rendering Path) is not supported. This camera will render without HDR buffers. Disable Antialiasing in the Quality settings if you want to use HDR.
- 
-(Filename:  Line: 2237)
-
-HDR and MultisampleAntiAliasing (in Forward Rendering Path) is not supported. This camera will render without HDR buffers. Disable Antialiasing in the Quality settings if you want to use HDR.
- 
-(Filename:  Line: 2237)
-
-HDR and MultisampleAntiAliasing (in Forward Rendering Path) is not supported. This camera will render without HDR buffers. Disable Antialiasing in the Quality settings if you want to use HDR.
- 
-(Filename:  Line: 2237)
-
 Platform assembly: D:\Stuff\oralPerspectives\Build\oralScene1_noOVR_x8664_Data\Managed\Boo.Lang.dll (this message is harmless)

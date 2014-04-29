@@ -36,11 +36,11 @@ public class mouthOpenClose : MonoBehaviour {
 								animation.Play ();
 						}
 						if (Input.GetMouseButtonUp (0)) {
-								Debug.Log ("mouseUp");
+								//Debug.Log ("mouseUp");
 						}
 
 						if (Input.GetMouseButton (1)){
-								Debug.Log ("Pressed right click.");
+								//Debug.Log ("Pressed right click.");
 			}
 				}
 		}

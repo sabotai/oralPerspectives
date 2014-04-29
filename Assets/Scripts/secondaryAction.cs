@@ -16,7 +16,7 @@ public class secondaryAction : MonoBehaviour {
 	void Update () {
 
 		if (Input.GetKey (KeyCode.V)) {
-						Debug.Log ("instantiating new vomit");
+						//Debug.Log ("instantiating new vomit");
 
 						for (int i = 0; i < 3; i++) {
 								GameObject clone;

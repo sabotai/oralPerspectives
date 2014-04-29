@@ -29,9 +29,12 @@ public class control : MonoBehaviour {
 	public AudioSource shiftSound;
 
 	bool begin;
-	int clickCount, stepCount;
+	int stepCount;
+	public int clickCount;
 	float audioVol;
 	float originalVol, originalVol2;
+	bool first;
+	public bool soundUpdate;
 
 
 
@@ -60,18 +63,21 @@ public class control : MonoBehaviour {
 
 		originalVol = audioToStop1.volume;
 		originalVol2 = audioToStop2.volume;
-		Debug.Log (originalVol);
-
-
+		//Debug.Log (originalVol);
 		
 		startTime = Time.time;
 
+		
+
+
 		relativeEndMarker = startMarker.InverseTransformDirection(endMarker.transform.position);
 		relativeStartMarker = player.transform.InverseTransformDirection(startMarker.transform.position);
-		Debug.Log ("relativeEndMarker = " + relativeEndMarker);
+		//Debug.Log ("relativeEndMarker = " + relativeEndMarker);
 
 
 		journeyLength = Vector3.Distance(startMarker.position, endMarker.position);
+
+		player.transform.position = startMarker.position;
 
 
 
@@ -79,15 +85,16 @@ public class control : MonoBehaviour {
 	}
 
 	void Update() {
-		float step = speed * Time.deltaTime;
-
+		//float step = speed * Time.deltaTime;
+		//Debug.Log("clickCount is " + clickCount);
 	
 
 
-		if (Input.GetMouseButtonUp (1)) {
+		if (Input.GetMouseButtonUp (1) || soundUpdate) {
 
 			if (clickCount == 0) {
 				//do sound
+				startTime = Time.time;
 
 			} else if (clickCount == 2) {
 				wallThump.Play ();
@@ -105,7 +112,7 @@ public class control : MonoBehaviour {
 			//light.rotation = Quaternion.RotateTowards(transform.rotation, lightTarget.rotation, step);
 
 			clickCount++;
-			Debug.Log("clickCount is " + clickCount);
+			soundUpdate = false;
 
 		}		
 		if (clickCount > 0) {
@@ -133,9 +140,11 @@ public class control : MonoBehaviour {
 		
 		if (clickCount == 3) {
 			//Debug.Log ("wall should be moving");
+			//soundUpdate = true;
 			
 			breakaway1.rigidbody.AddForce (Vector3.Normalize (destination - sceneTarget.transform.position));
 			breakaway1.rigidbody.isKinematic = false;
+			StartCoroutine (waitElevator());
 		}
 
 		if (clickCount == 4) {
@@ -147,8 +156,9 @@ public class control : MonoBehaviour {
 		if (clickCount >= 4) {
 			//Debug.Log ("scene1 should be moving");
 			//shiftSound.Play();
-
 			//VIBRATE AS IT GOES DOWN
+			//soundUpdate = true;
+
 			StartCoroutine (vibrate());
 
 			
@@ -173,7 +183,25 @@ public class control : MonoBehaviour {
 		//audioToStop1.Stop();
 	}
 
+	IEnumerator waitElevator() {
+
+		//clickCount++;
+		yield return new WaitForSeconds (2);
+		//yield return clickCount;
+		//Update ();
+		StartCoroutine (waitElevator2 ());
+		//vibrate ();
+
+		}
+	IEnumerator waitElevator2(){
+		soundUpdate = true;
+		yield return soundUpdate;
+
+		}
+
 	IEnumerator vibrate() {
+
+
 
 
 		if (destinationPosition.transform.position.y < playerTarget.transform.position.y) {
@@ -181,7 +209,7 @@ public class control : MonoBehaviour {
 			//sceneTarget.transform.position.y -= 1 ;
 			Vector3 newPosition2 = playerTarget.transform.position;
 			newPosition2.y -= speed * Time.deltaTime;
-			Debug.Log (newPosition2.y);
+			//Debug.Log (newPosition2.y);
 			
 			playerTarget.transform.position = newPosition2;
 			

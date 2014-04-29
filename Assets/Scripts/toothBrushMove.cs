@@ -30,13 +30,30 @@ public class toothBrushMove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if (counter > howManyCycles - 2) {
+			
+			ParticleSystem emission = GameObject.Find ("brushEmission").transform.particleSystem;
+			ParticleSystem emission2 = GameObject.Find ("brushEmission2").transform.particleSystem;
+			ParticleSystem emission3 = GameObject.Find ("brushEmission3").transform.particleSystem;
+			ParticleSystem emission4 = GameObject.Find ("brushEmission4").transform.particleSystem;
+			emission2.Stop();
+			emission3.Stop ();
+			emission4.Stop ();
+			emission.Stop();
+			/*
+			Debug.Log ("wut " + emission2.isPlaying);
+			Debug.Log (emission.isPlaying);
+			Debug.Log (emission3.isPlaying);
+			Debug.Log (emission4.isPlaying);*/
+				}
+
 		if (startBrushing && counter <= howManyCycles) {
 			started = true;
 						//GameObject obj = GameObject.Find("monoCam");
 						//transform.parent= obj.transform;
 
 						if (currentWaypoint < waypoint.Length) {
-								Debug.Log ("current toothbrush waypoint = " + currentWaypoint);
+								//Debug.Log ("current toothbrush waypoint = " + currentWaypoint);
 								Vector3 target = waypoint [currentWaypoint].position;
 								Vector3 moveDirection = target - toothbrushObj.transform.position;
 								velo = toothbrushObj.rigidbody.velocity;
@@ -56,10 +73,17 @@ public class toothBrushMove : MonoBehaviour {
 
 				} else {
 
-					if (started) {
+			if (started) {
 					
 				
 				toothbrushObj.rigidbody.AddForce (10,0,0);
+
+				GameObject obj = GameObject.Find("bathroomScene");
+				//obj.GetComponent<control>().clickCount = 3;
+				obj.GetComponent<control>().soundUpdate = true;
+				//obj.GetComponent<control>().shiftSound.Play();
+				started = false;
+				
 			}
 
 			/*

@@ -12,6 +12,7 @@ public class brushingCollision : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//foam = GameObject.Find ("brushEmission").transform;
 		emission2 = GameObject.Find ("brushEmission2").transform;
 		emission3 = GameObject.Find ("brushEmission3").transform;
 		emission4 = GameObject.Find ("brushEmission4").transform;
@@ -28,7 +29,7 @@ public class brushingCollision : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider mouthCollider) {
-		Debug.Log("toothbrush collision explicit");
+		//Debug.Log("toothbrush collision explicit");
 		//scoreDisplay.GetComponent<displayScore>().iScore++;
 		//play sound
 		audio.Stop ();
