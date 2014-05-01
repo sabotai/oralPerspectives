@@ -45,7 +45,7 @@ public class mouthOpenClose : MonoBehaviour {
 				}
 		}
 
-	void Go() {
+	public void Go() {
 		audio.Stop ();
 		audio.Play();
 		animation.Rewind ();

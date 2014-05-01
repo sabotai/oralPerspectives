@@ -28,6 +28,8 @@ public class control : MonoBehaviour {
 	public AudioSource wallThump;
 	public AudioSource shiftSound;
 
+	public AudioSource elevatorSound;
+
 	bool begin;
 	int stepCount;
 	public int clickCount;
@@ -158,6 +160,8 @@ public class control : MonoBehaviour {
 			//shiftSound.Play();
 			//VIBRATE AS IT GOES DOWN
 			//soundUpdate = true;
+			//audio.PlayOneShot (elevatorSound, 0.8f);
+			elevatorSound.Play();
 
 			StartCoroutine (vibrate());
 
@@ -203,33 +207,36 @@ public class control : MonoBehaviour {
 
 
 
-
 		if (destinationPosition.transform.position.y < playerTarget.transform.position.y) {
-			//Debug.Log ("user should be moving");
-			//sceneTarget.transform.position.y -= 1 ;
-			Vector3 newPosition2 = playerTarget.transform.position;
-			newPosition2.y -= speed * Time.deltaTime;
-			//Debug.Log (newPosition2.y);
+						//Debug.Log ("user should be moving");
+						//sceneTarget.transform.position.y -= 1 ;
+						Vector3 newPosition2 = playerTarget.transform.position;
+						newPosition2.y -= speed * Time.deltaTime;
+						//Debug.Log (newPosition2.y);
 			
-			playerTarget.transform.position = newPosition2;
+						playerTarget.transform.position = newPosition2;
 			
-			float audioVolDecrease = playerTarget.transform.position.y - destinationPosition.transform.position.y;	
+						float audioVolDecrease = playerTarget.transform.position.y - destinationPosition.transform.position.y;	
 			
-			//audioToStop1.volume -= speed * Time.deltaTime;
-			audioToStop1.volume = (audioVolDecrease / audioVol) * originalVol;
-			audioToStop2.volume = (audioVolDecrease / audioVol) * originalVol2;
-			audioToStart.volume = 0.5f - (audioVolDecrease / audioVol);
-			audioToStart2.volume = 0.5f - (audioVolDecrease / audioVol);
-			audioToStart3.volume = 0.5f - (audioVolDecrease / audioVol);
+						//audioToStop1.volume -= speed * Time.deltaTime;
+						audioToStop1.volume = (audioVolDecrease / audioVol) * originalVol;
+						audioToStop2.volume = (audioVolDecrease / audioVol) * originalVol2;
+						audioToStart.volume = 0.5f - (audioVolDecrease / audioVol);
+						audioToStart2.volume = 0.5f - (audioVolDecrease / audioVol);
+						audioToStart3.volume = 0.5f - (audioVolDecrease / audioVol);
 			
-			//Debug.Log ("chick volume = " + audioToStart.volume);
-			//Debug.Log ("scene volume = " + audioToStop1.volume);
-			//yield return 0;
+						//Debug.Log ("chick volume = " + audioToStart.volume);
+						//Debug.Log ("scene volume = " + audioToStop1.volume);
+						//yield return 0;
+				} else {
+			
+					GameObject startMic = GameObject.Find ("AudioInputObject");
+					startMic.GetComponent<SpawnByLoudness> ().useMicrophone = true;
 		}
+		
 
 
-
-		float time = 0.05f;
+		float time = 0.018f; //was 0.05f
 		Vector3 originalPosition = sceneTarget.transform.position;
 
 		while (time > 0f) {
