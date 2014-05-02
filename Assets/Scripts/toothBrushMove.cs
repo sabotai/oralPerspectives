@@ -75,7 +75,8 @@ public class toothBrushMove : MonoBehaviour {
 
 			if (started) {
 					
-				
+				// blow the toothbrush away once done
+
 				toothbrushObj.rigidbody.AddForce (10,0,0);
 
 				GameObject obj = GameObject.Find("bathroomScene");

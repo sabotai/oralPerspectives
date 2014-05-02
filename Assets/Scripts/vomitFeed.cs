@@ -33,7 +33,7 @@ public class vomitFeed : MonoBehaviour {
 					Rigidbody myBod = GameObject.Find ("OVRCameraController").rigidbody;
 					myBod.isKinematic = false;
 				} else {
-								babybirdObj [i].transform.localScale += new Vector3 (0.002F, 0.002f, 0.002f);
+								babybirdObj [i].transform.localScale += new Vector3 (0.003F, 0.003f, 0.003f);
 			
 								//Collider destroyMe = babybirdz.collider;
 

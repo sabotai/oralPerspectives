@@ -27,7 +27,7 @@ public class SpawnByLoudness : MonoBehaviour {
 	
 	void Update () {
 
-		if (useMicrophone) {
+
 						/*=== ambiant noise detection ===*/
 						if (micIn.loudness > 0 && timeState == 1) {
 								time1 = Time.time;
@@ -54,9 +54,10 @@ public class SpawnByLoudness : MonoBehaviour {
 						Debug.Log (l);
 						Debug.Log ("ambient noise: " + ambient3);
 		
-						if (l > triggerLoudness) {
+						if (l > triggerLoudness * ambient3) {
 								//lightState = 2;
 								//objectToSpawn.light.intensity = 8.0f;
+								if (useMicrophone) {
 								Debug.Log ("SPAWWWWNNNN");
 								GameObject vomit = GameObject.Find ("vomitOrigin");
 								vomit.GetComponent<secondaryAction> ().Vomit ();
