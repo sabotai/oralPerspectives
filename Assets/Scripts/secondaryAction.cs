@@ -17,7 +17,7 @@ public class secondaryAction : MonoBehaviour {
 
 		if (Input.GetKey (KeyCode.V)) {
 						//Debug.Log ("instantiating new vomit");
-			//Vomit ();
+			Vomit ();
 				} else {
 			//vomitSound.Stop ();
 				}

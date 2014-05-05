@@ -4,6 +4,7 @@ using System.Collections;
 public class mouthOpenClose : MonoBehaviour {
 
 	public bool usingMouthController;
+	public bool biting;
 
 	// Use this for initialization
 	void Start () {
@@ -17,7 +18,9 @@ public class mouthOpenClose : MonoBehaviour {
 
 						if (Input.GetKeyDown (KeyCode.X)) {
 								Debug.Log ("Pressed X.");
+				biting = false;
 						} else {
+				biting = true;
 								audio.Stop ();
 								audio.Play ();
 								animation.Rewind ();
@@ -29,23 +32,20 @@ public class mouthOpenClose : MonoBehaviour {
 		
 
 						if (Input.GetMouseButton (0)) {
-								Debug.Log ("Pressed left click.");
+								//Debug.Log ("Pressed left click.");
 								audio.Stop ();
 								audio.Play ();
 								animation.Rewind ();
 								animation.Play ();
-						}
-						if (Input.GetMouseButtonUp (0)) {
-								//Debug.Log ("mouseUp");
-						}
-
-						if (Input.GetMouseButton (1)){
-								//Debug.Log ("Pressed right click.");
+				biting = true;
+						} else {
+				biting = false;
 			}
 				}
 		}
 
 	public void Go() {
+		biting = true;
 		audio.Stop ();
 		audio.Play();
 		animation.Rewind ();

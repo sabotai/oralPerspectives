@@ -3,6 +3,8 @@ using System.Collections;
 
 public class raycast : MonoBehaviour {
 
+
+
 	// Use this for initialization
 	void Start () {
 	
@@ -29,14 +31,25 @@ public class raycast : MonoBehaviour {
 			
 			if (collider1.name == "babybird1" || collider1.name == "babybird2" || collider1.name == "babybird3"  ){
 				//startBox = true;
+
+				if (GameObject.Find ("Player").GetComponent<useRift>().useOculusRift == true){
+					GameObject.Find (collider1.name + "/birdInstructions").renderer.enabled = true;}
 				
-				GameObject obj = GameObject.Find("birdGui");
+				GameObject obj = GameObject.Find("guiPlane");
 				obj.GetComponent<animateMat>().raycastGo=true;
 				//Application.LoadLevel ("dancingBaby"); //dancingBaby as example of scene title
 			}  else {
 				
-				GameObject obj = GameObject.Find("birdGui");
+				GameObject obj = GameObject.Find("guiPlane");
 				obj.GetComponent<animateMat>().raycastGo=false;
+
+
+				
+				if (GameObject.Find ("Player").GetComponent<useRift>().useOculusRift == true){
+					GameObject.Find ("babybird1/birdInstructions").renderer.enabled = false;
+					GameObject.Find ("babybird2/birdInstructions").renderer.enabled = false;
+					GameObject.Find ("babybird3/birdInstructions").renderer.enabled = false;
+				}
 
 			}
 		}

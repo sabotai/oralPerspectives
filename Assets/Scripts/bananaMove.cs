@@ -13,10 +13,13 @@ public class bananaMove : MonoBehaviour {
 	public int howManyCycles;
 	private bool started;
 	Vector3 tempV;
+	bool penetration;
+
 
 	// Use this for initialization
 	void Start () {	
 		tempV = clonePhallicObj.transform.position - phallicObj.transform.position;
+
 
 	
 	}
@@ -49,12 +52,12 @@ public class bananaMove : MonoBehaviour {
 						}
 
 			if (currentWaypoint == 1){
-				Debug.Log ("OHHHH YEAHHH");
-
+				//Debug.Log ("OHHHH YEAHHH");
 				// POSSIBLY ADD INTO CONDITIONAL A BOOLEAN FOR STRIKING THE TRIGGER BOX IN THE MOUTH
 
-				if (true){
+				if (penetration){
 					// INSERT CUTE YEAHHH SOUND 
+					audio.Play ();
 
 					// INCREASE COUNT APPROACHING 'ORGASM' 
 					// UPON ORGASM, TURN ON CAMERA COLLIDER AND DEPARENT EVERYTHING FROM IT AND TURN OFF RIGIDBODY-KINEMATIC
@@ -63,6 +66,8 @@ public class bananaMove : MonoBehaviour {
 				} else {
 					// INSERT CUTE SAD SOUND
 				}
+			} else {
+				audio.Pause ();
 			}
 
 			clonePhallicObj.transform.position = phallicObj.transform.position + tempV;//new Vector3(0,0,tempZ);
@@ -71,11 +76,28 @@ public class bananaMove : MonoBehaviour {
 			//clonePhallicObj.transform.position.x = temp;
 						
 			//clonePhallicObj.rigidbody.velocity = velo;			
-						Debug.Log ("thrust " + currentWaypoint);
+			//Debug.Log ("thrust " + currentWaypoint);
+
+
+			//if (
 			
 		}
 		
  //phallicObj.transform.position + (oldTransform - phallicObj.transform.position);// + (oldTransform - phallicObj.transform.position); 
 	
+	}
+
+	void OnTriggerEnter(Collider other){
+		if (other.name == "mouthContactTrigger") {
+			penetration = true;
+			Debug.Log ("penetrate!");
+				} else {
+			penetration = false;
+			
+			Debug.Log ("no penetrate");
+				}
+
+
+
 	}
 }
