@@ -57,7 +57,7 @@ public class animateMat : MonoBehaviour {
 
 									delay = 0;        
 									count++;
-									Debug.Log ("changing");
+									//Debug.Log ("changing");
 						}    
 						//Debug.Log ("delay is " + delay);
 				} else {

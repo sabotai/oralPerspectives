@@ -19,6 +19,7 @@ public class toothBrushMove : MonoBehaviour {
 	private int counter;
 	public int howManyCycles;
 	private bool started;
+	public AudioSource buildupSound;
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +30,12 @@ public class toothBrushMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
+		if (counter == howManyCycles - 4) {
+			//find a way to change how many it subtracts by the speed of the brushing
+						buildupSound.Play ();
+				}
+
 
 		if (counter > howManyCycles - 2) {
 			

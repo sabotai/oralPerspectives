@@ -14,7 +14,8 @@ public class bananaMove : MonoBehaviour {
 	private bool started;
 	Vector3 tempV;
 	bool penetration;
-
+	int penetrationCount;
+	public int penetrationLimit = 10;
 
 	// Use this for initialization
 	void Start () {	
@@ -57,7 +58,6 @@ public class bananaMove : MonoBehaviour {
 
 				if (penetration){
 					// INSERT CUTE YEAHHH SOUND 
-					audio.Play ();
 
 					// INCREASE COUNT APPROACHING 'ORGASM' 
 					// UPON ORGASM, TURN ON CAMERA COLLIDER AND DEPARENT EVERYTHING FROM IT AND TURN OFF RIGIDBODY-KINEMATIC
@@ -67,7 +67,7 @@ public class bananaMove : MonoBehaviour {
 					// INSERT CUTE SAD SOUND
 				}
 			} else {
-				audio.Pause ();
+				//audio.Pause ();
 			}
 
 			clonePhallicObj.transform.position = phallicObj.transform.position + tempV;//new Vector3(0,0,tempZ);
@@ -88,8 +88,11 @@ public class bananaMove : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
+		audio.Play ();
+
 		if (other.name == "mouthContactTrigger") {
 			penetration = true;
+			penetrationCount++;
 			Debug.Log ("penetrate!");
 				} else {
 			penetration = false;
@@ -97,6 +100,26 @@ public class bananaMove : MonoBehaviour {
 			Debug.Log ("no penetrate");
 				}
 
+		if (penetrationCount >= penetrationLimit){
+			//orgasm
+			Orgasm ();
+
+
+
+		}
+
+
+
+	}
+
+	void Orgasm() {
+		//trigger orgasm sound
+
+		//rigidbody no longer kinetic for monocam, cameraright, cameraleft
+
+		//turn off mouseLook on monocam
+
+		//StartCoroutine(WaitInStomach());
 
 
 	}

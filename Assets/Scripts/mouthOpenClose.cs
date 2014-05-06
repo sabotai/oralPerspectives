@@ -3,11 +3,12 @@ using System.Collections;
 
 public class mouthOpenClose : MonoBehaviour {
 
-	public bool usingMouthController;
+	public bool usingMouthController = false;
 	public bool biting;
 
 	// Use this for initialization
 	void Start () {
+
 	
 	}
 	

@@ -10,9 +10,27 @@ public class menuGui : MonoBehaviour {
 	public GUISkin myGuiSkin;
 	Texture2D texture = new Texture2D(128, 128);
 	private GUIStyle myGuiStyle2 = null;
+	private string riftText, mouthText;
+	public bool useRift = false;
+	public bool useMouth = false;
 
 	void start()
 	{
+		PlayerPrefs.DeleteAll ();
+		if (useRift) {
+			riftText = "No Oculus Rift :(";
+			PlayerPrefs.SetInt("Rift", 0);
+		} else {
+			riftText = "Use Oculus Rift :)";
+			PlayerPrefs.SetInt("Rift", 1);
+		}
+		if (useMouth) {
+			mouthText = "No Mouth Control :(";
+			PlayerPrefs.SetInt("Mouth", 0);
+		} else {
+			mouthText = "Use Mouth Control :)";
+			PlayerPrefs.SetInt("Mouth", 1);
+		}
 
 		/*
 				for (int y = 0; y < texture.height; ++y) {
@@ -29,6 +47,20 @@ public class menuGui : MonoBehaviour {
 		}
 
 	void OnGUI () {// Make a background box
+		if (useRift) {
+			riftText = "No Rift :(";
+			PlayerPrefs.SetInt("Rift", 0);
+		} else {
+			riftText = "Use Rift! :)";
+			PlayerPrefs.SetInt("Rift", 1);
+		}
+		if (useMouth) {
+			mouthText = "No Mouth :(";
+			PlayerPrefs.SetInt("Mouth", 0);
+		} else {
+			mouthText = "Use Mouth! :)";
+			PlayerPrefs.SetInt("Mouth", 1);
+		}
 
 		InitStyles ();
 		//mainGui.font = guiFont;
@@ -51,13 +83,13 @@ public class menuGui : MonoBehaviour {
 		}
 		
 		// Make the second button.
-		if(GUI.Button(new Rect(Screen.width / 3 , ((Screen.height / 5) * 2) + buttonHeight*1.5f,Screen.width / 6, Screen.height / 12), "Scenes", myGuiStyle)) {
-			Application.LoadLevel(1);
+		if(GUI.Button(new Rect(Screen.width / 3 , ((Screen.height / 5) * 2) + buttonHeight*1.5f,Screen.width / 6, Screen.height / 12), riftText, myGuiStyle)) {
+			useRift = !useRift;
 		}
 		
 		// Make the second button.
-		if(GUI.Button(new Rect(Screen.width / 3 , ((Screen.height / 5) * 2) + buttonHeight*3,Screen.width / 6, Screen.height / 12), "About", myGuiStyle)) {
-			Application.LoadLevel(1);
+		if(GUI.Button(new Rect(Screen.width / 3 , ((Screen.height / 5) * 2) + buttonHeight*3,Screen.width / 6, Screen.height / 12), mouthText, myGuiStyle)) {
+			useMouth = !useMouth;
 		}
 		
 		// Make the second button.
