@@ -106,16 +106,21 @@ public class SpawnByLoudness : MonoBehaviour {
 								if (l < 0)
 										l = 0;
 								Debug.Log (l);
-								//Debug.Log ("ambient noise: " + ambient3);
-		
-								if (l > triggerLoudness * ambient3) {
+				//Debug.Log ("ambient noise: " + ambient3);
+				GameObject vomit = GameObject.Find ("vomitOrigin");
+				
+				if (l > triggerLoudness * ambient3) {
 										//lightState = 2;
 										//objectToSpawn.light.intensity = 8.0f;
 										//Debug.Log ("SPAWWWWNNNN");
-										GameObject vomit = GameObject.Find ("vomitOrigin");
 										vomit.GetComponent<secondaryAction> ().Vomit ();
 
-								}
+								} else {
+					
+					if (vomit.GetComponent<secondaryAction> ().vomitSound.isPlaying) {
+						vomit.GetComponent<secondaryAction> ().vomitSound.Pause ();
+					}
+				}
 						}
 				}
 		

@@ -19,9 +19,11 @@ public class mouthOpenClose : MonoBehaviour {
 
 						if (Input.GetKeyDown (KeyCode.X)) {
 								Debug.Log ("Pressed X.");
-				biting = false;
+								biting = false;
 						} else {
-				biting = true;
+
+								animation["Default Take"].speed = 1.5f;
+								biting = true;
 								audio.Stop ();
 								audio.Play ();
 								animation.Rewind ();
@@ -33,14 +35,15 @@ public class mouthOpenClose : MonoBehaviour {
 		
 
 						if (Input.GetMouseButton (0)) {
-								//Debug.Log ("Pressed left click.");
-								audio.Stop ();
+				//Debug.Log ("Pressed left click.");
+				animation["Default Take"].speed = 1.5f;
+				audio.Stop ();
 								audio.Play ();
 								animation.Rewind ();
 								animation.Play ();
-				biting = true;
+								biting = true;
 						} else {
-				biting = false;
+								biting = false;
 			}
 				}
 		}

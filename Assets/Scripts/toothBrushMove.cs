@@ -18,13 +18,15 @@ public class toothBrushMove : MonoBehaviour {
 	private Vector3 velo;
 	private int counter;
 	public int howManyCycles;
-	private bool started;
+	private bool started, keepBrushing;
 	public AudioSource buildupSound;
+
 
 	// Use this for initialization
 	void Start () {
 		counter = 0;
 		started = false;
+		keepBrushing = true;
 	
 	}
 	
@@ -35,8 +37,15 @@ public class toothBrushMove : MonoBehaviour {
 			//find a way to change how many it subtracts by the speed of the brushing
 						buildupSound.Play ();
 				}
+		if ((buildupSound.time < buildupSound.clip.length - 0.3f) && keepBrushing == true) {
+						keepBrushing = true;
 
-
+				} else {
+			keepBrushing = false;
+		}
+		//Debug.Log (buildupSound.time + " Time   vs " + buildupSound.clip.length + " Total; BrushBool = " + keepBrushing);
+		
+		
 		if (counter > howManyCycles - 2) {
 			
 			ParticleSystem emission = GameObject.Find ("brushEmission").transform.particleSystem;
@@ -54,7 +63,7 @@ public class toothBrushMove : MonoBehaviour {
 			Debug.Log (emission4.isPlaying);*/
 				}
 
-		if (startBrushing && counter <= howManyCycles) {
+		if ((startBrushing) && ((counter <= howManyCycles) || keepBrushing)) {
 			started = true;
 						//GameObject obj = GameObject.Find("monoCam");
 						//transform.parent= obj.transform;

@@ -19,7 +19,7 @@ public class secondaryAction : MonoBehaviour {
 						//Debug.Log ("instantiating new vomit");
 			Vomit ();
 				} else {
-			//vomitSound.Stop ();
+					vomitSound.Pause ();
 				}
 	}
 
@@ -35,8 +35,12 @@ public class secondaryAction : MonoBehaviour {
 			//clone.rigidbody.mass = 1;
 			//clone.rigidbody.velocity = vomitOrigin.transform.TransformDirection(Vector3.forward);
 		}
-		vomitSound.Play ();
 
+		
+		if (!vomitSound.isPlaying) {
+						vomitSound.Play ();
+				}
+		Debug.Log (vomitSound.isPlaying + " vomit sound");
 
 	}
 }

@@ -311,7 +311,7 @@ public class control : MonoBehaviour {
 	IEnumerator auto(float seconds){
 		
 		yield return new WaitForSeconds (seconds); 
-		Debug.Log ("BEFORE");
+		//Debug.Log ("BEFORE");
 
 		StartCoroutine(updateAdvance ());
 
@@ -347,7 +347,7 @@ public class control : MonoBehaviour {
 
 						advance = false;
 		if (clickCount < 2) {
-			Debug.Log ("AFTER");
+			//Debug.Log ("AFTER");
 			soundUpdate = true;
 				
 						}
