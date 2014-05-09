@@ -113,6 +113,7 @@ public class bananaMove : MonoBehaviour {
 	}
 
 	void Orgasm() {
+		Debug.Log ("Orgasm triggered");
 		//trigger orgasm sound
 
 		//rigidbody no longer kinetic for monocam, cameraright, cameraleft

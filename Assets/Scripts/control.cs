@@ -39,6 +39,9 @@ public class control : MonoBehaviour {
 	float originalVol, originalVol2;
 	bool first;
 	public bool soundUpdate;
+	GameObject blurryMirror;
+
+	public bool arrivedAtSink;
 
 
 
@@ -48,8 +51,8 @@ public class control : MonoBehaviour {
 	public Transform startMarker;
 	public Transform endMarker;
 	public float walkSpeed = 1.0F;
-	private float startTime;
-	private float journeyLength;
+	public float startTime;
+	public float journeyLength;
 	public float smooth = 5.0F;
 	public GameObject player;
 	Vector3 relativeEndMarker, relativeStartMarker;
@@ -59,10 +62,13 @@ public class control : MonoBehaviour {
 
 	GameObject obj;
 
+	public float fracJourney;
 
 
 	// Use this for initialization
 	void Start () {
+		arrivedAtSink = false;
+		blurryMirror = GameObject.Find ("mirrorBlur");
 		//float upTransform = 11.5;
 		begin = false;
 		destination = Random.insideUnitSphere * 100f;
@@ -104,6 +110,7 @@ public class control : MonoBehaviour {
 		
 		if (player.transform.position == endMarker.position) {
 			stepSound.Stop();
+			//Debug.Log ("stepSound stopped");
 				}
 
 		if (((autoadvance == false) && Input.GetMouseButtonUp (1)) || soundUpdate) {
@@ -132,19 +139,31 @@ public class control : MonoBehaviour {
 			soundUpdate = false;
 
 		}		
+
+
+		/* // ////////////////////////////////// THIS GOT MOVED TO playerStepBounce
 		if (clickCount > 0) {
 
-			
 
-			//walk forward, only works if you right click first
-			float distCovered = (Time.time - startTime) * walkSpeed;
-			float fracJourney = distCovered / journeyLength;
-			player.transform.position = Vector3.Lerp(startMarker.position, endMarker.position, fracJourney);
+			if (player.transform.position != endMarker.position){
+
+				//walk forward, only works if you right click first
+				float distCovered = (Time.time - startTime) * walkSpeed;
+				fracJourney = distCovered / journeyLength;
+				player.transform.position = Vector3.Lerp(startMarker.position, endMarker.position, fracJourney);
+
+
+				float blurSize = Mathf.Lerp (20, 5, fracJourney);
+				//Mathf.PingPong(Time.time, 1.0F);
+
+				blurryMirror.GetComponent<Renderer>( ).material.SetFloat("_Size", blurSize);
+			}
+}
+		*/	
 
 
 
 
-		}		
 		if (clickCount == 2) {
 			//Debug.Log ("toothbrush is moving");
 
@@ -230,7 +249,9 @@ public class control : MonoBehaviour {
 
 
 			if (player.transform.position == endMarker.position) {
-				
+				arrivedAtSink = true;
+				Debug.Log ("Player arrived at position");
+
 				if (obj.GetComponent<toothBrushMove>().startBrushing == false){
 					advance = true;
 					//Debug.Log ("FLIPPING SWITCH ON ADVANCE");
@@ -243,70 +264,7 @@ public class control : MonoBehaviour {
 		}
 	}
 
-	/*using UnityEngine;
-	using System.Collections;
-	
-	public class ballFeel : MonoBehaviour {
-		
-		public Transform ball1, ball2; //assign in inspector
-		
-		// Use this for initialization
-		void Start () {
-			// BallSwap(); //DO NOT DO THIS
-			StartCoroutine (BallSwap ()); //if you put it in update, it will create new coroutines going in parallel each time update runs
-			
-		}
-		
-		IEnumerator BallSwap () {
-			Debug.Log ("the coroutine started!");
-			yield return 0; // wait a frame, must be 0 -- cant wait 3 frames with yield return 3
-			Debug.Log ("one frame elapsed");
-			yield return 0;
-			yield return null; // wait 2 frames
-			Debug.Log ("2 additional frame elapsed!");
-			yield return new WaitForSeconds( 2.0f ); //better way of doing this, automatically calculate the frames per second
-			Debug.Log ("2 seconds elapsed");
-			
-			
-			while (true) { //ok to use infinite loop, because we will take it to break after it
-				float time = 0f;
-				Vector3 originalBall1Pos = ball1.position;
-				Vector3 originalBall2Pos = ball2.position;
-				
-				while (time < 1f) {
-					time += Time.deltaTime;
-					ball1.position = Vector3.Lerp (originalBall1Pos, originalBall2Pos, time); //Lerp = linear interpolation
-					ball2.position = Vector3.Lerp (originalBall2Pos, originalBall1Pos, time);
-					
-					if (time > 0.49f && time < 0.51f){ 
-						audio.Play ();
-						StartCoroutine (ScreenShake ());
-					}
-					
-					yield return 0; //wait a frame
-				}
-				
-			}
-		}
-		
-		IEnumerator ScreenShake() {
-			float time = 0.3f;
-			Vector3 originalCamPosition = Camera.main.transform.position;
-			
-			while (time > 0f) {
-				time -= Time.deltaTime;
-				Camera.main.transform.position = //Camera.main.transform.position
-					originalCamPosition
-						+ Vector3.right * Mathf.Sin (Time.time * 113f) * time; 
-				
-				
-				
-				yield return 0;
-			}
-			Camera.main.transform.position = originalCamPosition;
-		}
-	}
-	*/
+
 
 	IEnumerator auto(float seconds){
 		
@@ -317,28 +275,6 @@ public class control : MonoBehaviour {
 
 		yield break;
 
-		/*
-		if (clickCount < 1) {
-						yield return new WaitForSeconds (seconds); // initial wait for 10 seconds}
-						updateAdvance ();
-			Debug.Log ("clickCount<1 in coroutine = " + clickCount);
-			yield break;
-			
-		} 
-				if ((clickCount == 1)){// && (advance == true)) {
-						yield return new WaitForSeconds (seconds); // initial wait for 10 seconds}
-						//soundUpdate = true;
-						updateAdvance ();
-						Debug.Log ("clickCount==1 in coroutine = " + clickCount);
-						yield break;
-				} 
-
-				
-		Debug.Log ("YOU ARE IN AUTO COROUTINE");
-		yield break;
-		
-		
-		*/
 		
 	}
 
@@ -358,16 +294,6 @@ public class control : MonoBehaviour {
 		}
 
 
-		/*
-	IEnumerator updateAdvance(){
-		Debug.Log ("YOU ARE IN UPDATEADVANCE COROUTINE");
-		soundUpdate = true;
-				
-		yield break;
-		yield return 0;
-
-		}
-		*/
 
 	IEnumerator waitElevator() {
 
@@ -460,64 +386,3 @@ public class control : MonoBehaviour {
 
 }
 
-
-	/*
-	// Update is called once per frame ---- FixedUpdate is called every ___ seconds
-	void FixedUpdate () {
-
-
-		if ( Input.GetKey (KeyCode.Space)) 
-		{
-			//GetComponent<Rigidbody> ().AddForce (new Vector3 (1f,10f, 0f));
-			//GetComponent<Rigidbody> ().AddForce (transform.up * 15f);//, ForceMode.Acceleration);
-			//rigidbody.Addforce.... <-shortcut
-			//transform.rotation = Quaternion.FromToRotation(Vector3.up, transform.forward);
-			Quaternion.RotateTowards(transform.rotation, transform.down, step)
-		}
-		if (Input.GetKey (KeyCode.UpArrow)) 
-		{
-			rigidbody.AddForce (transform.forward * 15f);
-		}
-		if (Input.GetKey (KeyCode.LeftArrow)) 
-		{
-			rigidbody.AddForce (-transform.right * 15f);
-		}
-		if (Input.GetKey (KeyCode.RightArrow)) 
-		{
-			rigidbody.AddForce (transform.right * 15f);
-		}
-	}
-}
-
-using UnityEngine;
-using System.Collections;
-
-public class fishActorScript : MonoBehaviour {
-
-	public Vector3 destination;
-
-
-	//one idea is to use this for the sun and the moon
-	// Use this for initialization
-	void Start () {
-		InvokeRepeating ("RandomizeDestination", 0f, 3f); //after 1 second, it will randomize destination every 10 seconds
-	
-	}
-	
-	void RandomizeDesination(){
-		
-			destination = Random.insideUnitSphere * 100f; //if you see "unit," it = 1; unit sphere is circle with radius of 1
-
-		}
-
-
-	// Update is called once per frame
-	void FixedUpdate () { //using fixedupdate because it will do some physics
-		rigidbody.AddForce (Vector3.Normalize (destination - transform.position));
-		
-	}
-
-	void Update () {
-		transform.rotation = Quaternion.LookRotation (rigidbody.velocity); // look rotation rigidbody velocity turns the fish to look towards destination
-
-*/
