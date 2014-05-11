@@ -98,7 +98,7 @@ public class playerStepBounce : MonoBehaviour {
 
 	void bounceSetup(){
 		
-		time = .5f; //was 0.05f, time = how high
+		time = .2f; //was 0.05f, time = how high
 		totalTime = time;
 		originalPosition = tempTransform;
 		Debug.Log (tempTransform);

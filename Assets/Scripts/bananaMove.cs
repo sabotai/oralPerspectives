@@ -4,7 +4,9 @@ using System.Collections;
 public class bananaMove : MonoBehaviour {
 
 	public Transform[] waypoint;
-	public GameObject phallicObj, clonePhallicObj;
+	public GameObject phallicObj; 
+	public GameObject clonePhallicObj;
+	public GameObject primaryCam, primaryRiftCam;//, primaryRiftCam2;
 	public bool startThrusting;
 	public float waySpeed = 5;
 	private int currentWaypoint;
@@ -16,12 +18,33 @@ public class bananaMove : MonoBehaviour {
 	bool penetration;
 	int penetrationCount;
 	public int penetrationLimit = 10;
+	GameObject bathroomScene, tongue;
+	public GameObject cameraDestination;
+	GameObject characterTransform;
+	public float howFastAddForce = 135;
+	public AudioSource music, thump, orgasmSound;
+
+	bool rift;
+	//Transform characterTransform;
+
 
 	// Use this for initialization
 	void Start () {	
 		tempV = clonePhallicObj.transform.position - phallicObj.transform.position;
 
+		
+		characterTransform = GameObject.Find("Player 1/OVRCameraController/CameraRight/monoCam/character");
+		bathroomScene = GameObject.Find("bathroomStallHole/bathroom");
+		tongue = GameObject.Find ("Player 1/OVRCameraController/CameraRight/monoCam/character/teethClosedSimpleAnimated3");///Zunge_Plane_012");
 
+		if (GameObject.Find ("Player 1").GetComponent<useRift> ().useOculusRift) {
+
+						rift = true;
+				} else {
+			rift = false;}
+
+
+		
 	
 	}
 	
@@ -57,6 +80,8 @@ public class bananaMove : MonoBehaviour {
 				// POSSIBLY ADD INTO CONDITIONAL A BOOLEAN FOR STRIKING THE TRIGGER BOX IN THE MOUTH
 
 				if (penetration){
+					audio.Pause ();
+					audio.Play ();
 					// INSERT CUTE YEAHHH SOUND 
 
 					// INCREASE COUNT APPROACHING 'ORGASM' 
@@ -80,6 +105,18 @@ public class bananaMove : MonoBehaviour {
 
 
 			//if (
+
+			if (penetrationCount >= penetrationLimit){
+				//orgasm
+				
+				if (music.volume < 0.6f){
+					music.volume += (0.1f * Time.deltaTime);
+				}
+				//music.Play ();
+				//Debug.Log (Time.deltaTime);
+				
+				
+			}
 			
 		}
 		
@@ -88,9 +125,10 @@ public class bananaMove : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		audio.Play ();
+
 
 		if (other.name == "mouthContactTrigger") {
+			thump.Play();
 			penetration = true;
 			penetrationCount++;
 			Debug.Log ("penetrate!");
@@ -100,10 +138,18 @@ public class bananaMove : MonoBehaviour {
 			Debug.Log ("no penetrate");
 				}
 
-		if (penetrationCount >= penetrationLimit){
+		if (penetrationCount == penetrationLimit){
 			//orgasm
+			orgasmSound.Play ();
 			Orgasm ();
 
+
+			/*
+			if (music.volume < 0.6f){
+				music.volume += 0.1f;
+			}*/
+			//music.Play ();
+			//Debug.Log (music.volume);
 
 
 		}
@@ -112,8 +158,46 @@ public class bananaMove : MonoBehaviour {
 
 	}
 
-	void Orgasm() {
+		void Orgasm() {
+		if (rift){
+			primaryRiftCam.collider.enabled = true;
+			//primaryRiftCam.rigidbody.enabled = true;
+			primaryCam.collider.enabled = false;
+			Destroy(primaryCam.rigidbody);
+
+
+			primaryRiftCam.rigidbody.isKinematic = false;
+			primaryRiftCam.rigidbody.AddForce (howFastAddForce * (cameraDestination.transform.position - primaryCam.transform.position));
+		} else {
+			primaryRiftCam.collider.enabled = false;
+			primaryCam.collider.enabled = true;
+			//primaryCam.rigidbody.enabled = true;
+			
+			Destroy(primaryRiftCam.rigidbody);
+
+
+			primaryCam.rigidbody.isKinematic = false;
+			
+			primaryCam.rigidbody.AddForce (howFastAddForce * (cameraDestination.transform.position - primaryCam.transform.position));
+			
+		}
+
+
 		Debug.Log ("Orgasm triggered");
+		primaryCam.transform.parent = null;
+		characterTransform.transform.parent = null;
+		primaryCam.transform.DetachChildren();
+
+
+
+
+		Destroy (bathroomScene);
+		Destroy (tongue);
+		
+
+		
+		
+		//pushOffSound.Play ();
 		//trigger orgasm sound
 
 		//rigidbody no longer kinetic for monocam, cameraright, cameraleft

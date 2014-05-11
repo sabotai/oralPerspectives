@@ -27,7 +27,7 @@ public class raycast : MonoBehaviour {
 			Collider collider1 = rayHit.collider;
 			//Debug.Log(collider1.name);
 			
-			
+			if (Application.loadedLevelName == "birdSceneB"){
 			
 			if (collider1.name == "babybird1" || collider1.name == "babybird2" || collider1.name == "babybird3"  ){
 				//startBox = true;
@@ -50,6 +50,8 @@ public class raycast : MonoBehaviour {
 					GameObject.Find ("babybird2/birdInstructions").renderer.enabled = false;
 					GameObject.Find ("babybird3/birdInstructions").renderer.enabled = false;
 				}
+
+			}
 
 			}
 		}

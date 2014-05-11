@@ -24,6 +24,7 @@ public class control : MonoBehaviour {
 	public AudioSource audioToStart;
 	public AudioSource audioToStart2;
 	public AudioSource audioToStart3;
+	public AudioSource audioToStart4;
 
 	public AudioSource wallThump;
 	public AudioSource shiftSound;
@@ -109,7 +110,7 @@ public class control : MonoBehaviour {
 		//advance = true;
 		
 		if (player.transform.position == endMarker.position) {
-			stepSound.Stop();
+			//stepSound.Stop();
 			//Debug.Log ("stepSound stopped");
 				}
 
@@ -117,13 +118,19 @@ public class control : MonoBehaviour {
 
 			if (clickCount == 0) {
 				//do sound
-				startTime = Time.time;
-				stepSound.Play();
+				startTime = Time.time;   
+				if (!stepSound.isPlaying) {
+					stepSound.Play();}
 
 			} else if (clickCount == 2) {
-				wallThump.Play ();
-			} else if (clickCount == 3){
-				shiftSound.Play();
+				
+				if (!wallThump.isPlaying) {
+					wallThump.Play ();}
+			} else if (clickCount == 3){        
+				if (!shiftSound.isPlaying) {
+					shiftSound.Play();
+				}
+				//shiftSound.Play();
 			}
 
 			//GetComponent<Rigidbody> ().AddForce (new Vector3 (1f,10f, 0f));
@@ -235,10 +242,10 @@ public class control : MonoBehaviour {
 			if (advance) {
 							if (clickCount < 1){
 								//Debug.Log ("START ADVANCING 0");
-					StartCoroutine (auto(5));
+					StartCoroutine (auto(9));
 						} else if (clickCount == 1){
 							//Debug.Log ("START ADVANCING 1");
-							StartCoroutine (auto(3));
+							StartCoroutine (auto(5));
 							
 					//clickCount = 2;
 							
@@ -333,6 +340,7 @@ public class control : MonoBehaviour {
 						audioToStart.volume = 0.5f - (audioVolDecrease / audioVol);
 						audioToStart2.volume = 0.5f - (audioVolDecrease / audioVol);
 						audioToStart3.volume = 0.5f - (audioVolDecrease / audioVol);
+			audioToStart4.volume = 0.5f - (audioVolDecrease / audioVol);
 			
 						//Debug.Log ("chick volume = " + audioToStart.volume);
 						//Debug.Log ("scene volume = " + audioToStop1.volume);

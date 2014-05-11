@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Reflection;
 
 public class mouthOpenClose : MonoBehaviour {
 
 	public bool usingMouthController = false;
 	public bool biting;
+	public GameObject monoCam, cameraLeft, cameraRight;
+	float origFocal;
 
 	// Use this for initialization
 	void Start () {
-
+		
+		origFocal = monoCam.GetComponent <DepthOfFieldScatter> ().focalLength;
 	
 	}
 	
@@ -45,6 +49,27 @@ public class mouthOpenClose : MonoBehaviour {
 						} else {
 								biting = false;
 			}
+				}
+
+		if (biting) {
+						//change focal distance
+						//monoCam.GetComponent<DepthOfFieldScatter>().focusOnTransform = GameObject.Find ("bird2Vomit");
+			//Camera.main.GetComponent <DepthOfFieldScatter>().focusOnThis = GameObject.Find ("bird2Vomit").transform;
+			monoCam.GetComponent <DepthOfFieldScatter> ().focalLength = 0.6f;
+			cameraLeft.GetComponent <DepthOfFieldScatter> ().focalLength = 0.6f;
+			cameraRight.GetComponent <DepthOfFieldScatter> ().focalLength = 0.6f;
+
+
+						/*
+			Component dofs = Camera.main.GetComponent <DepthOfFieldScatter>();
+			FieldInfo fi = dofs.GetType().GetField("focalLength");
+			fi.SetValue(dofs, 99.0f);
+		*/
+		} else {
+			monoCam.GetComponent <DepthOfFieldScatter> ().focalLength = origFocal;
+			cameraLeft.GetComponent <DepthOfFieldScatter> ().focalLength = origFocal;
+			cameraRight.GetComponent <DepthOfFieldScatter> ().focalLength = origFocal;
+
 				}
 		}
 

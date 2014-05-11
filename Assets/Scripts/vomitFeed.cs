@@ -5,6 +5,7 @@ public class vomitFeed : MonoBehaviour {
 	//Collider vomitCollider;
 	public GameObject[] babybirdObj;
 	//GameObject vomitColliderObj;
+	public AudioSource pushOffSound;
 	
 	// Use this for initialization
 	void Start () {
@@ -31,6 +32,9 @@ public class vomitFeed : MonoBehaviour {
 				if ((babybirdObj[2].transform.localScale.x > 1.797) || (babybirdObj[0].transform.localScale.x > 1.847f) || (babybirdObj[1].transform.localScale.x > 1.233f)){// new Vector3(1.847f, 1.847f, 1.847f)) || (babybirdObj[1].transform.localScale > new Vector3(1.233f, 1.233f, 1.233f))){
 					
 					Rigidbody myBod = GameObject.Find ("OVRCameraController").rigidbody;
+					
+					if (!pushOffSound.isPlaying) {
+						pushOffSound.Play ();}
 					myBod.isKinematic = false;
 				} else {
 								babybirdObj [i].transform.localScale += new Vector3 (0.003F, 0.003f, 0.003f);
