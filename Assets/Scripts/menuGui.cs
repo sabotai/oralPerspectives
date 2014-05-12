@@ -18,18 +18,18 @@ public class menuGui : MonoBehaviour {
 	{
 		PlayerPrefs.DeleteAll ();
 		if (useRift) {
-			riftText = "No Oculus Rift :(";
-			PlayerPrefs.SetInt("Rift", 0);
-		} else {
 			riftText = "Use Oculus Rift :)";
 			PlayerPrefs.SetInt("Rift", 1);
+		} else {
+			riftText = "No Oculus Rift :(";
+			PlayerPrefs.SetInt("Rift", 0);
 		}
 		if (useMouth) {
-			mouthText = "No Mouth Control :(";
-			PlayerPrefs.SetInt("Mouth", 0);
-		} else {
 			mouthText = "Use Mouth Control :)";
 			PlayerPrefs.SetInt("Mouth", 1);
+		} else {
+			mouthText = "No Mouth Control :(";
+			PlayerPrefs.SetInt("Mouth", 0);
 		}
 
 		/*
@@ -46,15 +46,22 @@ public class menuGui : MonoBehaviour {
 
 		}
 
+	void Update(){
+		
+		if (Input.GetKeyDown (KeyCode.Alpha3)) {
+			Application.LoadLevel ("gloryHole");
+		}
+	}
+
 	void OnGUI () {// Make a background box
-		if (useRift) {
+		if (!useRift) {
 			riftText = "No Rift :(";
 			PlayerPrefs.SetInt("Rift", 0);
 		} else {
 			riftText = "Use Rift! :)";
 			PlayerPrefs.SetInt("Rift", 1);
 		}
-		if (useMouth) {
+		if (!useMouth) {
 			mouthText = "No Mouth :(";
 			PlayerPrefs.SetInt("Mouth", 0);
 		} else {

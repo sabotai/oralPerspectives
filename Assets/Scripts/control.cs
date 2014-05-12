@@ -242,10 +242,10 @@ public class control : MonoBehaviour {
 			if (advance) {
 							if (clickCount < 1){
 								//Debug.Log ("START ADVANCING 0");
-					StartCoroutine (auto(9));
+					StartCoroutine (auto(10));
 						} else if (clickCount == 1){
 							//Debug.Log ("START ADVANCING 1");
-							StartCoroutine (auto(5));
+							StartCoroutine (auto(8));
 							
 					//clickCount = 2;
 							

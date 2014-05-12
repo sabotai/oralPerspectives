@@ -28,8 +28,9 @@ public class mouthOpenClose : MonoBehaviour {
 
 								animation["Default Take"].speed = 1.5f;
 								biting = true;
+								if (!audio.isPlaying){
 								audio.Stop ();
-								audio.Play ();
+					audio.Play ();}
 								animation.Rewind ();
 								animation.Play ();
 
@@ -39,10 +40,11 @@ public class mouthOpenClose : MonoBehaviour {
 		
 
 						if (Input.GetMouseButton (0)) {
-				//Debug.Log ("Pressed left click.");
+								//Debug.Log ("Pressed left click.");
 				animation["Default Take"].speed = 1.5f;
-				audio.Stop ();
-								audio.Play ();
+								if (!audio.isPlaying && biting == false){
+									audio.Stop ();
+									audio.Play ();}
 								animation.Rewind ();
 								animation.Play ();
 								biting = true;
