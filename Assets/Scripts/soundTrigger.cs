@@ -3,8 +3,9 @@ using System.Collections;
 
 public class soundTrigger : MonoBehaviour {
 	public bool goGoGo = false;
-	bool waiting = true;
+	public bool waiting = true;
 	GameObject vomit;
+	public AudioSource orgasmSound;
 
 	// Use this for initialization
 	void Start () {
@@ -13,24 +14,27 @@ public class soundTrigger : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (goGoGo){
-			if (!waiting){
-				audio.volume *= 0.97f;
-				StartCoroutine(updateAdvance());}
-			
-			vomit.GetComponent<secondaryAction> ().Vomit ();
-			StartCoroutine (auto (30));
-		}
-	
-	}
+				if (goGoGo) {
+						if (!waiting) {
+								//if updateAdvance is already done, lower the volume
+								audio.volume *= 0.998f;
+								StartCoroutine(updateAdvance());
+						}
+								//StartCoroutine (auto (0.1f));
 
+						vomit.GetComponent<secondaryAction> ().Vomit ();
+
+
+						StartCoroutine (auto (3));
+				}
+	
+				
+		}
 
 	void OnTriggerEnter(Collider other){
 		if (other.name == "monoCam" || other.name == "CameraRight" || other.name == "OVRCameraController") {
 			
-						if (!audio.isPlaying) {
-								audio.Play ();
-			}
+
 			StartCoroutine (auto (7));
 				}
 	
@@ -52,6 +56,16 @@ public class soundTrigger : MonoBehaviour {
 	
 	IEnumerator updateAdvance(){
 		
+		if (!orgasmSound.isPlaying && waiting) {
+			orgasmSound.Play ();
+		}
+		
+		if (goGoGo && !waiting) {
+			if (!audio.isPlaying) {
+				audio.Play ();
+			}
+		}
+
 		if (goGoGo) {
 			waiting = false;
 			if (audio.volume > 0.05f)  {
@@ -61,6 +75,7 @@ public class soundTrigger : MonoBehaviour {
 				} else {
 						goGoGo = true;
 				}
+
 		yield return 0;
 		StopAllCoroutines ();
 		yield break;

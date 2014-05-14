@@ -21,6 +21,8 @@ public class toothBrushMove : MonoBehaviour {
 	private bool started, keepBrushing;
 	public AudioSource buildupSound;
 
+	float timeOut;
+
 
 	// Use this for initialization
 	void Start () {
@@ -62,7 +64,7 @@ public class toothBrushMove : MonoBehaviour {
 			Debug.Log (emission3.isPlaying);
 			Debug.Log (emission4.isPlaying);*/
 				}
-
+		//Debug.Log (currentWaypoint);
 		if ((startBrushing) && ((counter <= howManyCycles) || keepBrushing)) {
 			started = true;
 						//GameObject obj = GameObject.Find("monoCam");
@@ -76,6 +78,8 @@ public class toothBrushMove : MonoBehaviour {
 				
 								if (moveDirection.magnitude < 0.3f) {
 										currentWaypoint++;
+										timeOut = Time.time;
+
 								} else {
 										velo = moveDirection.normalized * waySpeed;
 								}
@@ -84,7 +88,13 @@ public class toothBrushMove : MonoBehaviour {
 								waySpeed *= 1.2f;
 								counter += 1;
 						}
-			
+
+						if (Time.time > timeOut + 2){
+				Debug.Log ("reset " + currentWaypoint);
+				currentWaypoint = 1;
+
+			}
+
 						toothbrushObj.rigidbody.velocity = velo;
 
 				} else {

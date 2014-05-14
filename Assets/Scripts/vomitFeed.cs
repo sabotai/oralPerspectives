@@ -37,7 +37,7 @@ public class vomitFeed : MonoBehaviour {
 						pushOffSound.Play ();}
 					myBod.isKinematic = false;
 				} else {
-								babybirdObj [i].transform.localScale += new Vector3 (0.003F, 0.003f, 0.003f);
+								babybirdObj [i].transform.localScale += new Vector3 (0.007F, 0.007f, 0.007f);
 			
 								//Collider destroyMe = babybirdz.collider;
 

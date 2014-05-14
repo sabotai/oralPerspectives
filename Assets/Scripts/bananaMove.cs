@@ -24,11 +24,14 @@ public class bananaMove : MonoBehaviour {
 	public float howFastAddForce = 135;
 	public AudioSource music, thump, orgasmSound, missSound, ouchSound;
 	public AudioSource whoosh;
+	public Collider destroyCollider1, destroyCollider2, destroyCollider3, destroyCollider4;
+	public Collider[] destroyCollider;
 
 	bool rift;
 	bool init = true;
 	//Transform characterTransform;
 	GameObject mouth;
+	bool orgasm = false;
 
 	// Use this for initialization
 	void Start () {	
@@ -55,11 +58,11 @@ public class bananaMove : MonoBehaviour {
 	void Update () {
 
 		if (init) {
-			StartCoroutine (auto(1));
+			StartCoroutine (auto(7));
 		} else {
 			//if (thump.isPlaying){
 			//	thump.Pause ();}
-			if (audio.isPlaying && audio.time > 0.25f) { //stop kitten from squeeling too long
+			if (audio.isPlaying && audio.time > 0.2f) { //stop kitten from squeeling too long
 			audio.Pause ();
 		}
 		
@@ -90,7 +93,7 @@ public class bananaMove : MonoBehaviour {
 
 								if (currentWaypoint == 1) {
 					
-					if (!whoosh.isPlaying){
+					if (!whoosh.isPlaying && !orgasm){
 						whoosh.Play();
 					} else {
 						whoosh.pitch *= 1.01f;
@@ -99,8 +102,8 @@ public class bananaMove : MonoBehaviour {
 										// POSSIBLY ADD INTO CONDITIONAL A BOOLEAN FOR STRIKING THE TRIGGER BOX IN THE MOUTH
 
 										if (penetration) {
-											if (!audio.isPlaying){
-							audio.Play ();}
+											if (!audio.isPlaying && !orgasm){
+												audio.Play ();}
 												// INSERT CUTE YEAHHH SOUND 
 
 												// INCREASE COUNT APPROACHING 'ORGASM' 
@@ -108,9 +111,7 @@ public class bananaMove : MonoBehaviour {
 												// MAYBE 2 CAMERA COLLIDERS/RIGIDBODIES
 
 					} else {
-						Debug.Log ("play miss sound");
-						if (!missSound.isPlaying){
-							missSound.Play ();}
+						//Debug.Log ("play miss sound");
 						// INSERT CUTE SAD SOUND
 										}
 								} else {
@@ -131,8 +132,9 @@ public class bananaMove : MonoBehaviour {
 								if (penetrationCount >= penetrationLimit) {
 										//orgasm
 										GameObject temp = GameObject.Find("musicSound");
-										if ((music.volume < 0.6f) && (!temp.GetComponent<soundTrigger>().goGoGo)) {
-												music.volume += (0.02f * Time.deltaTime);
+										if ((music.volume < 0.6f) && (temp.GetComponent<soundTrigger>().waiting)) {
+												music.volume += (0.01f * Time.deltaTime);
+						//Debug.Log("INCREASING VOLUMEN");
 										}
 										//music.Play ();
 										//Debug.Log (Time.deltaTime);
@@ -146,7 +148,7 @@ public class bananaMove : MonoBehaviour {
  //phallicObj.transform.position + (oldTransform - phallicObj.transform.position);// + (oldTransform - phallicObj.transform.position); 
 	
 		
-		if (ouchSound.isPlaying && ouchSound.time > 2) { //stop kitten from squeeling too long
+		if ((ouchSound.isPlaying && ouchSound.time > 2) && !orgasm) { //stop kitten from squeeling too long
 						ouchSound.Stop ();
 				}
 
@@ -159,33 +161,42 @@ public class bananaMove : MonoBehaviour {
 			//thump.Play();
 			penetration = true;
 			penetrationCount++;
-			Debug.Log ("penetrate!");
+			//Debug.Log ("penetrate!");
 				} else {
 			penetration = false;
 			
-			Debug.Log ("no penetrate");
+			//Debug.Log ("no penetrate");
 				}
 
-		if (penetrationCount == penetrationLimit){
-			//orgasm
-			orgasmSound.Play ();
-			Orgasm ();
+		if (penetrationCount == penetrationLimit - 2){
+			//delete mouth colliders so the banana can build up enough momentum to knock the camera into the stomach
+			//is destorying the collider making it sit still?
+			for (int i = 0; i <destroyCollider.Length; i++){
+				Destroy (destroyCollider[i]);
+			}
 
+			if (!orgasmSound.isPlaying){
+				orgasmSound.Play ();}
+			Debug.Log ("destory'd");
+			
+		}
+
+		if (penetrationCount == penetrationLimit){
+			if (!missSound.isPlaying){
+				missSound.Play ();
+			}
+			//orgasm
+			Orgasm ();
+			
 		}
 
 
 
 	}
-	void OnCollisionEnter(Collision other){		
-		//if (other.name != "mouthContactTrigger") {
-
-		//}
-		
-	}
 
 	void OnTriggerStay(Collider other){		
 				if (other.name == "mouthContactTrigger") {
-						if (!thump.isPlaying) {
+			if (!thump.isPlaying && !orgasm) {
 								thump.Play ();
 						}
 				}
@@ -198,12 +209,16 @@ public class bananaMove : MonoBehaviour {
 				}
 		}
 
-		void Orgasm() {
+	void Orgasm() {
+		orgasm = true;
+
 		if (GameObject.Find ("Player 1").GetComponent<useRift> ().useOculusRift) {
 			
 			rift = true;
 		} else {
 			rift = false;}
+
+		//transform.localScale *= 0.8f;
 
 		if (rift){
 			primaryRiftCam.collider.enabled = true;
