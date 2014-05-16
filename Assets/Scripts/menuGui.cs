@@ -51,6 +51,9 @@ public class menuGui : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Alpha3)) {
 			Application.LoadLevel ("gloryHole");
 		}
+		if (Input.GetKeyDown (KeyCode.Alpha4)) {
+			Application.LoadLevel ("test");
+		}
 	}
 
 	void OnGUI () {// Make a background box
