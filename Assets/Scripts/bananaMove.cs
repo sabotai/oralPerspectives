@@ -26,6 +26,8 @@ public class bananaMove : MonoBehaviour {
 	public AudioSource whoosh;
 	public Collider destroyCollider1, destroyCollider2, destroyCollider3, destroyCollider4;
 	public Collider[] destroyCollider;
+	float timeOut;
+	bool timeReset = false;
 
 	bool rift;
 	bool init = true;
@@ -79,11 +81,17 @@ public class bananaMove : MonoBehaviour {
 				
 										if (moveDirection.magnitude < 0.2f) {
 												currentWaypoint++;
+												timeOut = Time.time;
+												timeReset = false;
 
 
 
 										} else {
 												velo = moveDirection.normalized * waySpeed;
+												if (Time.time > timeOut + 3f){
+													currentWaypoint = 1;
+													timeReset = true;
+												}
 										}
 								} else {
 										currentWaypoint = 1;
@@ -91,13 +99,13 @@ public class bananaMove : MonoBehaviour {
 										counter += 1;
 								}
 
-								if (currentWaypoint == 1) {
+								if ((currentWaypoint == 1) && !timeReset) {
 					
-					if (!whoosh.isPlaying && !orgasm){
-						whoosh.Play();
-					} else {
-						whoosh.pitch *= 1.01f;
-					}
+									if (!whoosh.isPlaying && !orgasm){
+										whoosh.Play();
+									} else {
+										whoosh.pitch *= 1.01f;
+								}
 										//Debug.Log ("OHHHH YEAHHH");
 										// POSSIBLY ADD INTO CONDITIONAL A BOOLEAN FOR STRIKING THE TRIGGER BOX IN THE MOUTH
 
@@ -255,7 +263,7 @@ public class bananaMove : MonoBehaviour {
 
 
 		Destroy (bathroomScene);
-		Destroy (tongue);
+		//Destroy (tongue);
 		
 
 		

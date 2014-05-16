@@ -1,0 +1,52 @@
+---Sounds---
+nas - life's a bitch
+
+
+dave-des - fast simple chop 1
+qubodup - lion roar
+nextmaking - slap
+rsilveira - high whoosh
+klankbeeld - defecate-shit-01 //needs hyperlink
+ashleyxxpiano - bathroom-fan
+yoyodaman234 - concrete-footstep-3
+vrodge - animal-breathing-monster
+setuniman - howling-animal-0u16apt2
+juskiddink - collywobbles
+qudodup - throwing-away-plastic-trashbag
+jamesabdulrahman - comb-swell
+arctura - ambient-loop-wilderness-hillside-raw-outdoor-air-noise
+rutgermuller - sounds-for-earthquakers-radiator-metal-rumbling
+bareform - thump
+ldnsoundproduction - multi-echo-4
+maxdemianagl - meow-kitten
+geoneo0 - four-voices-whispering-2
+taira-kimori - brushing-teeth
+project-trident - banana-skin-chew-2
+macif - thump
+freqman - breathe-in-2
+freqman - breathe-out-8
+adam-n - tweeting
+thedapperdan - biting-an-apple
+kuroseishin - breathing female
+
+---Fonts---
+Toxic Waste Font by xerographer fonts
+http://www.dafont.com/toxicwaste.font?fpp=100&text=oral+Perspectives
+
+Cyrus the Virus Font by Iconian Fonts
+http://www.dafont.com/cyrus-the-virus.font?fpp=100&text=oral+Perspectives
+
+DJ Gross by SDFonts
+http://www.dafont.com/dj-gross.font?text=dick+penis
+
+---Models---
+sculpted-mouth-model by matsoft 
+http://www.turbosquid.com/3d-models/free-character-tongue-3d-model/782920
+
+---Images/Materials---
+Mind and Body Sketch by Descartes
+
+---Scripts---
+Spawn by Loudness by TeppoK
+http://www.kaappine.fi/tutorials/using-microphone-input-in-unity3d/
+

@@ -8,20 +8,32 @@ public class secondaryAction : MonoBehaviour {
 	public AudioSource vomitSound;
 	bool switchy;
 	int count;
+	GameObject bathroom;
 
 	// Use this for initialization
 	void Start () {
-	
+		if (Application.loadedLevel == 1){
+			bathroom = GameObject.Find ("bathroomScene");
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKey (KeyCode.V)) {
-						//Debug.Log ("instantiating new vomit");
-			Vomit ();
-				} else {
-					//vomitSound.Pause ();
+		if (Application.loadedLevel == 1) { // only have vomit controls in level one
+						if (bathroom.GetComponent <control> ().scene2) {
+								if (Input.GetAxis ("Mouse ScrollWheel") != 0) {
+										Vomit ();
+
+
+								}
+
+
+								if (Input.GetKey (KeyCode.V)) {
+										//Debug.Log ("instantiating new vomit");
+										Vomit ();
+								}
+						}
 				}
 	}
 
@@ -58,6 +70,10 @@ public class secondaryAction : MonoBehaviour {
 		
 		if (!vomitSound.isPlaying) {
 						vomitSound.Play ();
+				} else {
+					if (vomitSound.time > 0.1f){
+				vomitSound.Stop ();
+			}
 				}
 		Debug.Log (vomitSound.isPlaying + " vomit sound");
 

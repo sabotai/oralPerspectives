@@ -36,6 +36,10 @@ public class useRift : MonoBehaviour {
 			GameObject.Find ("guiPlane").GetComponent<animateMat>().useRiftGui = true;
 
 			GameObject.Find ("guiPlane").transform.parent = GameObject.Find ("CameraRight").transform;
+
+				
+				GameObject.Find ("CameraRight").GetComponent<AudioListener>().enabled = true;
+				GameObject.Find ("monoCam").GetComponent<AudioListener>().enabled = false;
 			}
 
 		} else {
@@ -46,6 +50,8 @@ public class useRift : MonoBehaviour {
 			GameObject.Find ("monoCam").GetComponent<MouseLook>().enabled = true;
 			GameObject.Find ("CameraRight").GetComponent<raycast>().enabled = false;
 			GameObject.Find ("monoCam").GetComponent<raycast>().enabled = true;
+			GameObject.Find ("CameraRight").GetComponent<AudioListener>().enabled = false;
+			GameObject.Find ("monoCam").GetComponent<AudioListener>().enabled = true;
 
 			if (Application.loadedLevelName == "birdSceneB"){
 				GameObject.Find ("guiPlane").GetComponent<animateMat>().useRiftGui = false;}

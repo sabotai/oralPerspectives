@@ -43,6 +43,7 @@ public class control : MonoBehaviour {
 	GameObject blurryMirror;
 
 	public bool arrivedAtSink;
+	public bool scene2 = false;
 
 
 
@@ -204,7 +205,7 @@ public class control : MonoBehaviour {
 			//VIBRATE AS IT GOES DOWN
 			//soundUpdate = true;
 			//audio.PlayOneShot (elevatorSound, 0.8f);
-
+			scene2 = true;
 			StartCoroutine (vibrate());
 
 			
