@@ -11,7 +11,7 @@ public class menuGui : MonoBehaviour {
 	Texture2D texture = new Texture2D(128, 128);
 	private GUIStyle myGuiStyle2 = null;
 	private string riftText, mouthText;
-	public bool useRift = false;
+	public bool useRift = true;
 	public bool useMouth = false;
 
 	void start()
@@ -47,6 +47,9 @@ public class menuGui : MonoBehaviour {
 		}
 
 	void Update(){
+		if (Input.GetKeyDown (KeyCode.Alpha2)) {
+			Application.LoadLevel ("birdSceneB 2");
+		}
 		
 		if (Input.GetKeyDown (KeyCode.Alpha3)) {
 			Application.LoadLevel ("gloryHole");

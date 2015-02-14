@@ -7,6 +7,7 @@ public class useRift : MonoBehaviour {
 	public bool useMouthController = false;
 	public bool useMenu = true;
 
+	private OVRDevice ovrdevice;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +25,8 @@ public class useRift : MonoBehaviour {
 
 
 		if (useOculusRift) {
+
+
 						GameObject.Find ("CameraLeft").camera.enabled = true;
 						GameObject.Find ("CameraRight").camera.enabled = true;
 			GameObject.Find ("CameraRight").GetComponent<fixRiftPosition>().correctBool = true;
@@ -32,7 +35,7 @@ public class useRift : MonoBehaviour {
 			GameObject.Find ("CameraRight").GetComponent<raycast>().enabled = true;
 			GameObject.Find ("monoCam").GetComponent<raycast>().enabled = false;
 			
-			if (Application.loadedLevelName == "birdSceneB"){
+			if (Application.loadedLevelName == "birdSceneB 2"){
 			GameObject.Find ("guiPlane").GetComponent<animateMat>().useRiftGui = true;
 
 			GameObject.Find ("guiPlane").transform.parent = GameObject.Find ("CameraRight").transform;
@@ -53,7 +56,7 @@ public class useRift : MonoBehaviour {
 			GameObject.Find ("CameraRight").GetComponent<AudioListener>().enabled = false;
 			GameObject.Find ("monoCam").GetComponent<AudioListener>().enabled = true;
 
-			if (Application.loadedLevelName == "birdSceneB"){
+			if (Application.loadedLevelName == "birdSceneB 2"){
 				GameObject.Find ("guiPlane").GetComponent<animateMat>().useRiftGui = false;}
 
 				}
@@ -65,6 +68,9 @@ public class useRift : MonoBehaviour {
 			GameObject.Find ("teethClosedSimpleAnimated3").GetComponent<mouthOpenClose>().usingMouthController = false;
 
 				}
+		
+		//ovrdevice = GameObject.Find(OVRCameraController).GetComponent<OVRDevice>();
+		//ovrdevice.ResetOrientation(0);
 	
 	}
 	

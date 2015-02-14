@@ -27,7 +27,7 @@ public class raycast : MonoBehaviour {
 			Collider collider1 = rayHit.collider;
 			//Debug.Log(collider1.name);
 			
-			if (Application.loadedLevelName == "birdSceneB"){
+			if (Application.loadedLevelName == "birdSceneB 2"){
 			
 			if (collider1.name == "babybird1" || collider1.name == "babybird2" || collider1.name == "babybird3"  ){
 				//startBox = true;
